@@ -8,8 +8,8 @@ from src.utils.logger import logger
 
 class RewardsEngine:
     """
-    Motor de Automação Soberano v4.3.
-    Cadência Humana Validada e Injeção de Parâmetros de Ponto.
+    Motor de Automação Soberano v4.4.
+    Focado em invisibilidade (Stealth) e estabilidade em modo Headless.
     """
 
     def __init__(self, config: Dict[str, Any]):
@@ -35,54 +35,67 @@ class RewardsEngine:
 
         ua = user_agent or "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0"
         
-        logger.info(f"Lançando Navegador Soberano (Headless: {headless})...")
+        logger.info(f"Lançando Navegador (Headless: {headless})...")
         try:
+            # Contexto com Bypass de Detecção Avançado
             self.context = await self._playwright.chromium.launch_persistent_context(
                 user_data_dir=self.profile_path,
                 channel="msedge",
                 headless=headless,
                 user_agent=ua,
                 viewport={'width': 1280, 'height': 720},
-                args=["--no-sandbox", "--disable-blink-features=AutomationControlled", "--no-first-run"]
+                ignore_default_args=["--enable-automation"],
+                args=[
+                    "--no-sandbox",
+                    "--disable-blink-features=AutomationControlled",
+                    "--no-first-run",
+                    "--disable-infobars",
+                    "--hide-scrollbars"
+                ]
             )
+            
+            # Script de Evasão (Esconde que é um bot)
             self.page = self.context.pages[0] if self.context.pages else await self.context.new_page()
+            await self.page.add_init_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+            
             self.page.set_default_timeout(60000)
             await self.page.goto("https://www.bing.com", wait_until="domcontentloaded")
-            logger.info("Sincronização OK.")
+            logger.info("Sistema Invisível e Pronto.")
+            
         except Exception as e:
             logger.error(f"Erro no lançamento: {e}")
             await self.shutdown()
             raise e
 
     async def perform_search(self, keywords: List[str], is_mobile: bool = False):
-        """Executa buscas com cadência humana validada (15-22s) e parâmetros de ponto."""
-        if not self.page: raise RuntimeError("Engine não inicializada.")
+        """Buscas com injeção de comportamento humano profundo."""
+        if not self.page: raise RuntimeError("Engine não preparada.")
 
         reward_param = "ML102W" if not is_mobile else "ML102V"
         
         for index, term in enumerate(keywords):
             try:
-                # Simula comportamento orgânico a cada 5 buscas
-                if index > 0 and index % 5 == 0:
-                    logger.debug("Simulando navegação orgânica para evitar detecção...")
-                    await self.page.goto("https://www.bing.com", wait_until="domcontentloaded")
-                    await asyncio.sleep(random.uniform(5, 10))
+                # Bypass de telemetria a cada ciclo
+                if index % 4 == 0:
+                    await self.page.goto("https://www.bing.com", wait_until="networkidle")
+                    await asyncio.sleep(random.uniform(3, 6))
 
-                url = f"https://www.bing.com/search?q={term.replace(' ', '+')}&form={reward_param}&OCID={reward_param}&PUBL=REWARDS_DASHBOARD"
-                
+                url = f"https://www.bing.com/search?q={term.replace(' ', '+')}&form={reward_param}&OCID={reward_param}"
                 await self.page.goto(url, wait_until="domcontentloaded")
                 
-                # CADÊNCIA VALIDADA: 15 a 22 segundos para crédito de pontos
-                delay = random.uniform(15, 22)
-                logger.info(f"[{index+1}/{len(keywords)}] Busca: {term} | Aguardando {delay:.1f}s")
-                await asyncio.sleep(delay)
+                # Simulação Humana Real: Espera e Scroll Dinâmico
+                delay = random.uniform(12, 20)
+                logger.info(f"[{index+1}/{len(keywords)}] {term} | Delay: {delay:.1f}s")
                 
-                # Interação física simulada (Scroll)
-                if random.random() > 0.4:
+                # Movimentação randômica do mouse e scroll para validar o ponto
+                for _ in range(random.randint(2, 5)):
+                    await asyncio.sleep(random.uniform(2, 4))
                     await self.page.mouse.wheel(0, random.randint(300, 800))
                 
+                await asyncio.sleep(delay / 2)
+                
             except Exception as e:
-                logger.warning(f"Falha no termo {term}: {e}")
+                logger.warning(f"Erro na busca {term}: {e}")
 
     async def shutdown(self):
         try:

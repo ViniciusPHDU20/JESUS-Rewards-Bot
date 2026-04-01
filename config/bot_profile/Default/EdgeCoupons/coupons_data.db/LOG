@@ -1,6 +1,15 @@
-2026/04/01-08:13:55.176 457b5 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/MANIFEST-000001
-2026/04/01-08:13:55.177 457b5 Recovering log #26
-2026/04/01-08:13:55.177 457b5 Reusing old log /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/000026.log 
-2026/04/01-08:13:55.187 457b3 Level-0 table #30: started
-2026/04/01-08:13:55.190 457b3 Level-0 table #30: 682132 bytes OK
-2026/04/01-08:13:55.191 457b3 Delete type=0 #26
+2026/04/01-08:39:46.742 47466 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/04/01-08:39:46.742 47466 Recovering log #42
+2026/04/01-08:39:46.743 47466 Reusing old log /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/000042.log 
+2026/04/01-08:39:46.754 47463 Level-0 table #46: started
+2026/04/01-08:39:46.756 47463 Level-0 table #46: 682132 bytes OK
+2026/04/01-08:39:46.757 47463 Delete type=0 #42
+2026/04/01-08:39:46.757 47463 Compacting 4@0 + 1@1 files
+2026/04/01-08:39:46.760 47463 Generated table #47@0: 4 keys, 682039 bytes
+2026/04/01-08:39:46.761 47463 Compacted 4@0 + 1@1 files => 682039 bytes
+2026/04/01-08:39:46.761 47463 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/04/01-08:39:46.761 47463 Delete type=2 #46
+2026/04/01-08:39:46.762 47463 Delete type=2 #40
+2026/04/01-08:39:46.762 47463 Delete type=2 #43
+2026/04/01-08:39:46.762 47463 Delete type=2 #37
+2026/04/01-08:39:46.762 47463 Delete type=2 #34
