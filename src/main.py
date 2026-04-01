@@ -17,7 +17,7 @@ def print_banner():
     print("██╔══██║██║  ██║╚██╗ ██╔╝██╔══██║██║╚██╗██║██║     ██╔══╝  ██║  ██║")
     print("██║  ██║██████╔╝ ╚████╔╝ ██║  ██║██║ ╚████║╚██████╗███████╗██████╔╝")
     print("╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝╚═════╝ ")
-    print("      ADVANCED REWARDS BOT | SOBERANO v3.0 | JESUS COMMAND")
+    print("      ADVANCED REWARDS BOT | SOBERANO v3.2 | JESUS COMMAND")
     print("\033[0m")
 
 async def interactive_menu():
@@ -28,9 +28,9 @@ async def interactive_menu():
     while True:
         clear_screen()
         print_banner()
-        print("\033[94m[1]\033[0m Iniciar Farm Completo")
+        print("\033[94m[1]\033[0m Iniciar Farm Completo (Logado)")
         print("\033[94m[2]\033[0m Consultar Saldo e Gráfico")
-        print("\033[94m[3]\033[0m Login Manual / Atualizar Perfil")
+        print("\033[93m[3] PRIMEIRO PASSO: Login Manual / Validar Conta\033[0m")
         print("\033[91m[0]\033[0m Sair")
         print("\n" + "═"*65)
         
@@ -38,13 +38,13 @@ async def interactive_menu():
 
         try:
             if choice == "1":
-                logger.info("Iniciando ciclo de farm...")
+                logger.info("Iniciando ciclo de farm automatizado...")
                 await engine.initialize(headless=False)
                 await automation.run_desktop_searches(35)
                 await automation.run_mobile_searches(25)
                 await stats.get_current_points()
                 stats.generate_graph()
-                input("\n\033[92m[OK] Operação concluída. ENTER para voltar...\033[0m")
+                input("\n\033[92m[OK] Farm concluído com sucesso. ENTER para voltar...\033[0m")
             
             elif choice == "2":
                 await engine.initialize(headless=True)
@@ -54,16 +54,17 @@ async def interactive_menu():
                 input("\nENTER para voltar...")
             
             elif choice == "3":
-                logger.info("Abrindo navegador para validação de conta...")
+                logger.info("Abrindo navegador para validação única de conta...")
                 await engine.initialize(headless=False)
-                print("\n\033[93m[!] Após validar o login, feche o navegador ou pressione ENTER aqui.\033[0m")
-                input()
+                print("\n\033[93m[!] Realize o login no Bing e marque 'Mantenha-me conectado'.\033[0m")
+                print("\033[93m[!] Quando estiver logado e vendo seus pontos, feche o navegador.\033[0m")
+                input("\n\033[92mPressione ENTER aqui APÓS fechar o navegador para validar a sessão.\033[0m")
             
             elif choice == "0":
                 break
         
         except Exception as e:
-            logger.error(f"Ocorreu um erro técnico: {e}")
+            logger.error(f"Erro na operação: {e}")
             input("\nPressione ENTER para tentar novamente...")
         
         finally:
