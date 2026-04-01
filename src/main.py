@@ -63,11 +63,13 @@ async def interactive_menu():
             print(f"\n\033[92mSUCESSO: Saldo atualizado para {pts} pts!\033[0m")
             input("\nPressione Enter para voltar...")
         elif choice == "5":
-            print("\033[93mAbrindo navegador para login manual...\033[0m")
+            print("\n\033[93m[!] Abrindo navegador para login manual...\033[0m")
+            print("[!] Realize o login na sua conta Microsoft e aceite 'Manter-se conectado'.")
             await engine.initialize(headless=False)
-            print("Após logar, feche a janela do navegador para salvar a sessão.")
-            await asyncio.sleep(60) 
+            input("\n\033[92m[?] Login concluído? Pressione ENTER para salvar a sessão e fechar...\033[0m")
             await engine.save_session()
+            print("\033[92m[OK] Sessão salva com sucesso!\033[0m")
+            await asyncio.sleep(2)
         elif choice == "0":
             break
         

@@ -35,23 +35,32 @@ class RewardsEngine:
         logger.info("Inicializando Motor de Automação Core...")
         playwright = await async_playwright().start()
         
-        # Caminho do estado da sessão (Protegido pelo .gitignore)
-        state_path = "/home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/session_state.json"
+        # Caminho absoluto para evitar erros de diretório
+        config_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../config"))
+        os.makedirs(config_dir, exist_ok=True)
+        state_path = os.path.join(config_dir, "session_state.json")
         
         user_agent = self.config.get("user_agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
         
         self.browser = await playwright.chromium.launch(headless=headless)
         
-        # Tenta carregar a sessão existente se o arquivo existir
-        try:
-            self.context = await self.browser.new_context(
-                user_agent=user_agent,
-                viewport={'width': 1920, 'height': 1080},
-                storage_state=state_path if os.path.exists(state_path) else None
-            )
-            logger.info("Sessão carregada com sucesso.")
-        except Exception as e:
-            logger.warning(f"Não foi possível carregar a sessão anterior: {str(e)}")
+        # Tenta carregar a sessão existente se o arquivo for válido e tiver conteúdo
+        if os.path.exists(state_path) and os.path.getsize(state_path) > 0:
+            try:
+                self.context = await self.browser.new_context(
+                    user_agent=user_agent,
+                    viewport={'width': 1920, 'height': 1080},
+                    storage_state=state_path
+                )
+                logger.info(f"Sessão carregada de: {state_path}")
+            except Exception as e:
+                logger.warning(f"Erro ao carregar sessão anterior: {str(e)}")
+                self.context = await self.browser.new_context(
+                    user_agent=user_agent,
+                    viewport={'width': 1920, 'height': 1080}
+                )
+        else:
+            logger.info("Nenhuma sessão anterior encontrada. Iniciando contexto limpo.")
             self.context = await self.browser.new_context(
                 user_agent=user_agent,
                 viewport={'width': 1920, 'height': 1080}
@@ -63,9 +72,10 @@ class RewardsEngine:
     async def save_session(self):
         """Salva o estado atual da sessão (cookies/tokens) para uso futuro."""
         if self.context:
-            state_path = "/home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/session_state.json"
+            config_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../config"))
+            state_path = os.path.join(config_dir, "session_state.json")
             await self.context.storage_state(path=state_path)
-            logger.info("Estado da sessão persistido localmente.")
+            logger.info(f"Estado da sessão persistido em: {state_path}")
 
     async def perform_search(self, keywords: List[str]):
         """Executa buscas dinâmicas com comportamento pseudo-humano."""
