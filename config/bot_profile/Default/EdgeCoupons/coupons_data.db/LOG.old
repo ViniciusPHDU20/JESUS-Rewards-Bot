@@ -1,0 +1,6 @@
+2026/04/01-07:14:27.151 3f3a8 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/04/01-07:14:27.152 3f3a8 Recovering log #4
+2026/04/01-07:14:27.152 3f3a8 Reusing old log /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/000004.log 
+2026/04/01-07:14:27.160 3f3b1 Level-0 table #8: started
+2026/04/01-07:14:27.162 3f3b1 Level-0 table #8: 682143 bytes OK
+2026/04/01-07:14:27.163 3f3b1 Delete type=0 #4

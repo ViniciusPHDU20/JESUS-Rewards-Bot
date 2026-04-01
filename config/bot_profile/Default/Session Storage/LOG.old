@@ -1,2 +1,5 @@
-2026/04/01-07:07:51.443 3ec1b Creating DB /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/Session Storage since it was missing.
-2026/04/01-07:07:51.447 3ec1b Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/Session Storage/MANIFEST-000001
+2026/04/01-07:14:49.738 3f580 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/Session Storage/MANIFEST-000001
+2026/04/01-07:14:49.739 3f580 Recovering log #3
+2026/04/01-07:14:49.739 3f580 Level-0 table #3: started
+2026/04/01-07:14:49.741 3f580 Level-0 table #3: 40651 bytes OK
+2026/04/01-07:14:49.743 3f580 Delete type=0 #3

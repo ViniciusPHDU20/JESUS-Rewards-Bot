@@ -1,2 +1,3 @@
-2026/04/01-07:07:51.482 3ebf9 Creating DB /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/shared_proto_db/metadata since it was missing.
-2026/04/01-07:07:51.484 3ebf9 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/shared_proto_db/metadata/MANIFEST-000001
+2026/04/01-07:14:49.676 3f55e Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/shared_proto_db/metadata/MANIFEST-000001
+2026/04/01-07:14:49.677 3f55e Recovering log #3
+2026/04/01-07:14:49.677 3f55e Reusing old log /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/shared_proto_db/metadata/000003.log 
