@@ -30,21 +30,41 @@ class RewardsEngine:
                 hook(event, data)
 
     async def initialize(self, headless: bool = True):
-        """Inicializa o motor Playwright e configura o contexto de navegação."""
+        """Inicializa o motor Playwright e configura o contexto de navegação com persistência de sessão."""
         logger.info("Inicializando Motor de Automação Core...")
         playwright = await async_playwright().start()
         
-        # Lógica de seleção de user-agent (Moto G52 / Desktop)
+        # Caminho do estado da sessão (Protegido pelo .gitignore)
+        state_path = "/home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/session_state.json"
+        
         user_agent = self.config.get("user_agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
         
         self.browser = await playwright.chromium.launch(headless=headless)
-        self.context = await self.browser.new_context(
-            user_agent=user_agent,
-            viewport={'width': 1920, 'height': 1080}
-        )
         
+        # Tenta carregar a sessão existente se o arquivo existir
+        try:
+            self.context = await self.browser.new_context(
+                user_agent=user_agent,
+                viewport={'width': 1920, 'height': 1080},
+                storage_state=state_path if os.path.exists(state_path) else None
+            )
+            logger.info("Sessão carregada com sucesso.")
+        except Exception as e:
+            logger.warning(f"Não foi possível carregar a sessão anterior: {str(e)}")
+            self.context = await self.browser.new_context(
+                user_agent=user_agent,
+                viewport={'width': 1920, 'height': 1080}
+            )
+
         await self._emit("ENGINE_READY")
         logger.info("Motor inicializado com sucesso.")
+
+    async def save_session(self):
+        """Salva o estado atual da sessão (cookies/tokens) para uso futuro."""
+        if self.context:
+            state_path = "/home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/session_state.json"
+            await self.context.storage_state(path=state_path)
+            logger.info("Estado da sessão persistido localmente.")
 
     async def perform_search(self, keywords: List[str]):
         """Executa buscas dinâmicas com comportamento pseudo-humano."""
