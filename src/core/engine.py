@@ -22,10 +22,8 @@ class RewardsEngine:
         self.bot_profile = os.path.join(self.project_root, "config/bot_profile")
 
     def _clone_profile(self):
-        """Realiza a clonagem dos dados de autenticação para evitar travas de processo."""
+        """Realiza a clonagem dos dados de autenticação com limpeza de travas."""
         source_profile = os.path.expanduser("~/.config/microsoft-edge")
-        
-        # Arquivos críticos para manter o login
         essential_items = ["Default/Cookies", "Default/Login Data", "Local State"]
         
         os.makedirs(self.bot_profile, exist_ok=True)
@@ -39,7 +37,16 @@ class RewardsEngine:
                 try:
                     shutil.copy2(src, dst)
                 except Exception as e:
-                    logger.warning(f"Aviso na cópia de {item}: {e}")
+                    logger.debug(f"Aviso na cópia de {item} (provavelmente em uso): {e}")
+
+        # Limpeza atômica de arquivos lock para evitar erro 'Target closed'
+        for root, dirs, files in os.walk(self.bot_profile):
+            for file in files:
+                if "lock" in file.lower() or "singleton" in file.lower():
+                    try:
+                        os.remove(os.path.join(root, file))
+                    except:
+                        pass
 
     async def initialize(self, headless: bool = False, user_agent: str = None):
         """Inicializa o contexto isolado e logado."""

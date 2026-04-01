@@ -1,0 +1,5 @@
+2026/04/01-07:07:55.419 3ebf7 Creating DB /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db since it was missing.
+2026/04/01-07:07:55.422 3ebf7 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/04/01-07:07:55.441 3ebf7 Level-0 table #5: started
+2026/04/01-07:07:55.446 3ebf7 Level-0 table #5: 681961 bytes OK
+2026/04/01-07:07:55.447 3ebf7 Delete type=0 #3
