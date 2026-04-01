@@ -40,6 +40,8 @@ async def interactive_menu():
 
         if choice == "1":
             await engine.initialize(headless=False)
+            page = await engine.context.new_page()
+            await page.goto("https://rewards.bing.com/", wait_until="networkidle")
             await automation.run_desktop_searches(35)
             await automation.run_mobile_searches(25)
             await stats.get_current_points()
@@ -48,11 +50,15 @@ async def interactive_menu():
             input("\nFarm e Gráfico concluídos. Enter para voltar...")
         elif choice == "2":
             await engine.initialize(headless=False)
+            page = await engine.context.new_page()
+            await page.goto("https://rewards.bing.com/", wait_until="networkidle")
             await automation.run_desktop_searches(35)
             await engine.save_session()
             input("\nBuscas Desktop concluídas. Enter para voltar...")
         elif choice == "3":
             await engine.initialize(headless=False)
+            page = await engine.context.new_page()
+            await page.goto("https://rewards.bing.com/", wait_until="networkidle")
             await automation.run_mobile_searches(25)
             await engine.save_session()
             input("\nBuscas Mobile concluídas. Enter para voltar...")
@@ -64,8 +70,14 @@ async def interactive_menu():
             input("\nPressione Enter para voltar...")
         elif choice == "5":
             print("\n\033[93m[!] Abrindo navegador para login manual...\033[0m")
-            print("[!] Realize o login na sua conta Microsoft e aceite 'Manter-se conectado'.")
+            # Deletar sessão antiga se existir para forçar login limpo
+            state_path = "/home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/session_state.json"
+            if os.path.exists(state_path):
+                os.remove(state_path)
+            
             await engine.initialize(headless=False)
+            page = await engine.context.new_page()
+            await page.goto("https://login.live.com/", wait_until="networkidle")
             input("\n\033[92m[?] Login concluído? Pressione ENTER para salvar a sessão e fechar...\033[0m")
             await engine.save_session()
             print("\033[92m[OK] Sessão salva com sucesso!\033[0m")
