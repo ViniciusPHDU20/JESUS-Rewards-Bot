@@ -1,15 +1,52 @@
-2026/04/01-08:58:55.399 48764 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/Session Storage/MANIFEST-000001
-2026/04/01-08:58:55.402 48764 Recovering log #36
-2026/04/01-08:58:55.403 48764 Level-0 table #38: started
-2026/04/01-08:58:55.404 48764 Level-0 table #38: 14255 bytes OK
-2026/04/01-08:58:55.406 48764 Delete type=0 #36
-2026/04/01-08:58:55.406 4876a Compacting 4@0 + 2@1 files
-2026/04/01-08:58:55.419 4876a Generated table #40@0: 316 keys, 13341 bytes
-2026/04/01-08:58:55.419 4876a Compacted 4@0 + 2@1 files => 13341 bytes
-2026/04/01-08:58:55.420 4876a compacted to: files[ 0 1 1 0 0 0 0 ]
-2026/04/01-08:58:55.421 4876a Delete type=2 #26
-2026/04/01-08:58:55.421 4876a Delete type=2 #35
-2026/04/01-08:58:55.421 4876a Delete type=2 #27
-2026/04/01-08:58:55.421 4876a Delete type=2 #38
-2026/04/01-08:58:55.421 4876a Delete type=2 #33
-2026/04/01-08:58:55.421 4876a Delete type=2 #30
+2026/04/01-09:19:07.462 497f9 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/Session Storage/MANIFEST-000001
+2026/04/01-09:19:07.463 497f9 Recovering log #50
+2026/04/01-09:19:07.463 497f9 Reusing old log /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/Session Storage/000050.log 
+2026/04/01-09:19:37.255 497fc Level-0 table #54: started
+2026/04/01-09:19:37.261 497fc Level-0 table #54: 350889 bytes OK
+2026/04/01-09:19:37.262 497fc Delete type=0 #50
+2026/04/01-09:19:57.956 497fc Level-0 table #56: started
+2026/04/01-09:19:57.969 497fc Level-0 table #56: 443320 bytes OK
+2026/04/01-09:19:57.972 497fc Delete type=0 #53
+2026/04/01-09:23:17.582 497fc Level-0 table #58: started
+2026/04/01-09:23:17.595 497fc Level-0 table #58: 396029 bytes OK
+2026/04/01-09:23:17.598 497fc Delete type=0 #55
+2026/04/01-09:25:23.221 497fc Level-0 table #60: started
+2026/04/01-09:25:23.233 497fc Level-0 table #60: 441975 bytes OK
+2026/04/01-09:25:23.234 497fc Delete type=0 #57
+2026/04/01-09:25:23.235 497fc Compacting 4@0 + 1@1 files
+2026/04/01-09:25:23.261 497fc Generated table #61@0: 417 keys, 1633536 bytes
+2026/04/01-09:25:23.261 497fc Compacted 4@0 + 1@1 files => 1633536 bytes
+2026/04/01-09:25:23.262 497fc compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/04/01-09:25:23.262 497fc Delete type=2 #58
+2026/04/01-09:25:23.262 497fc Delete type=2 #54
+2026/04/01-09:25:23.262 497fc Delete type=2 #51
+2026/04/01-09:25:23.263 497fc Delete type=2 #56
+2026/04/01-09:25:23.263 497fc Delete type=2 #60
+2026/04/01-09:25:52.555 497fc Level-0 table #63: started
+2026/04/01-09:25:52.560 497fc Level-0 table #63: 272772 bytes OK
+2026/04/01-09:25:52.561 497fc Delete type=0 #59
+2026/04/01-09:26:51.580 497f9 Level-0 table #65: started
+2026/04/01-09:26:51.582 497f9 Level-0 table #65: 11769 bytes OK
+2026/04/01-09:26:51.584 497f9 Delete type=0 #62
+2026/04/01-09:27:15.956 497fc Level-0 table #67: started
+2026/04/01-09:27:15.961 497fc Level-0 table #67: 284568 bytes OK
+2026/04/01-09:27:15.964 497fc Delete type=0 #64
+2026/04/01-09:29:35.809 497fc Level-0 table #69: started
+2026/04/01-09:29:35.817 497fc Level-0 table #69: 324546 bytes OK
+2026/04/01-09:29:35.820 497fc Delete type=0 #66
+2026/04/01-09:29:35.821 497fc Compacting 4@0 + 1@1 files
+2026/04/01-09:29:35.864 497fc Generated table #70@0: 181 keys, 2182602 bytes
+2026/04/01-09:29:35.871 497fc Generated table #71@0: 691 keys, 340741 bytes
+2026/04/01-09:29:35.871 497fc Compacted 4@0 + 1@1 files => 2523343 bytes
+2026/04/01-09:29:35.871 497fc compacted to: files[ 0 2 1 0 0 0 0 ]
+2026/04/01-09:29:35.872 497fc Delete type=2 #69
+2026/04/01-09:29:35.873 497fc Delete type=2 #61
+2026/04/01-09:29:35.873 497fc Delete type=2 #65
+2026/04/01-09:29:35.873 497fc Delete type=2 #63
+2026/04/01-09:29:35.873 497fc Delete type=2 #67
+2026/04/01-09:36:15.356 497fc Level-0 table #73: started
+2026/04/01-09:36:15.381 497fc Level-0 table #73: 2603433 bytes OK
+2026/04/01-09:36:15.384 497fc Delete type=0 #68
+2026/04/01-09:37:37.283 497fc Level-0 table #75: started
+2026/04/01-09:37:37.295 497fc Level-0 table #75: 1147801 bytes OK
+2026/04/01-09:37:37.297 497fc Delete type=0 #72

@@ -1,6 +1,24 @@
-2026/04/01-08:58:55.169 48764 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/Local Storage/leveldb/MANIFEST-000001
-2026/04/01-08:58:55.175 48764 Recovering log #15
-2026/04/01-08:58:55.176 48764 Reusing old log /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/Local Storage/leveldb/000015.log 
-2026/04/01-08:59:55.179 48764 Level-0 table #20: started
-2026/04/01-08:59:55.181 48764 Level-0 table #20: 28973 bytes OK
-2026/04/01-08:59:55.184 48764 Delete type=0 #15
+2026/04/01-09:19:07.236 497f9 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/Local Storage/leveldb/MANIFEST-000001
+2026/04/01-09:19:07.242 497f9 Recovering log #19
+2026/04/01-09:19:07.242 497f9 Reusing old log /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/Local Storage/leveldb/000019.log 
+2026/04/01-09:27:52.659 497fc Level-0 table #23: started
+2026/04/01-09:27:52.661 497fc Level-0 table #23: 23627 bytes OK
+2026/04/01-09:27:52.662 497fc Delete type=0 #19
+2026/04/01-09:32:15.629 497fc Level-0 table #25: started
+2026/04/01-09:32:15.630 497fc Level-0 table #25: 22040 bytes OK
+2026/04/01-09:32:15.632 497fc Delete type=0 #22
+2026/04/01-09:34:45.458 497fc Level-0 table #27: started
+2026/04/01-09:34:45.460 497fc Level-0 table #27: 27617 bytes OK
+2026/04/01-09:34:45.463 497fc Delete type=0 #24
+2026/04/01-09:34:45.464 497fc Compacting 4@0 + 1@1 files
+2026/04/01-09:34:45.467 497fc Generated table #28@0: 158 keys, 23821 bytes
+2026/04/01-09:34:45.467 497fc Compacted 4@0 + 1@1 files => 23821 bytes
+2026/04/01-09:34:45.468 497fc compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/04/01-09:34:45.469 497fc Delete type=2 #27
+2026/04/01-09:34:45.469 497fc Delete type=2 #25
+2026/04/01-09:34:45.469 497fc Delete type=2 #17
+2026/04/01-09:34:45.469 497fc Delete type=2 #23
+2026/04/01-09:34:45.469 497fc Delete type=2 #20
+2026/04/01-09:37:06.546 497fc Level-0 table #30: started
+2026/04/01-09:37:06.547 497fc Level-0 table #30: 18014 bytes OK
+2026/04/01-09:37:06.549 497fc Delete type=0 #26

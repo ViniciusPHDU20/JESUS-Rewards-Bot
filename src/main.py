@@ -22,8 +22,8 @@ def print_banner():
     print("██╔══██║██║  ██║╚██╗ ██╔╝██╔══██║██║╚██╗██║██║     ██╔══╝  ██║  ██║")
     print("██║  ██║██████╔╝ ╚████╔╝ ██║  ██║██║ ╚████║╚██████╗███████╗██████╔╝")
     print("╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝╚═════╝ ")
-    print(f"      {CYAN}ADVANCED REWARDS BOT | SOBERANO v5.0 | JESUS COMMAND{RESET}")
-    print(f"      {GREEN}Bypass: Lab-Validated | Mobile: Headless | Stats: Active{RESET}")
+    print(f"      {CYAN}ADVANCED REWARDS BOT | SOBERANO v5.1 | JESUS COMMAND{RESET}")
+    print(f"      {GREEN}Bypass: HID Emulation | Mobile: True Headless | Stats: Active{RESET}")
     print("═"*70)
 
 async def interactive_menu():
@@ -47,12 +47,12 @@ async def interactive_menu():
 
         try:
             if choice == "1":
-                logger.info("Iniciando Farm Sequencial Soberano...")
-                # 1. Desktop + Daily (Visível para segurança)
-                await engine.initialize(headless=False)
+                logger.info("Iniciando Farm Sequencial de Elite...")
+                # 1. Desktop + Daily (Visível para segurança e auditoria)
+                await engine.initialize(headless=False, is_mobile=False)
                 await daily.solve_daily_set()
                 await automation.run_desktop_searches(35)
-                # 2. Mobile (Headless nativo do módulo)
+                # 2. Mobile (Headless Nativo)
                 await automation.run_mobile_searches(25)
                 # 3. Finalização
                 pts = await stats.get_current_points()
@@ -67,13 +67,13 @@ async def interactive_menu():
                 input("\nENTER para voltar...")
             
             elif choice == "3":
-                await engine.initialize(headless=False)
+                await engine.initialize(headless=False, is_mobile=False)
                 await automation.run_desktop_searches(35)
                 input("\nDesktop Finalizado. ENTER...")
             
             elif choice == "4":
-                # Forçar inicialização headless para mobile
-                await engine.initialize(headless=True)
+                # Forçar inicialização headless para mobile direto do menu
+                await engine.initialize(headless=True, is_mobile=True)
                 await automation.run_mobile_searches(25)
                 input("\nMobile Finalizado (Silencioso). ENTER...")
 

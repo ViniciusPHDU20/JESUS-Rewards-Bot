@@ -1,15 +1,15 @@
-2026/04/01-08:59:03.298 48752 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/MANIFEST-000001
-2026/04/01-08:59:03.299 48752 Recovering log #68
-2026/04/01-08:59:03.299 48752 Reusing old log /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/000068.log 
-2026/04/01-08:59:03.308 48741 Level-0 table #72: started
-2026/04/01-08:59:03.312 48741 Level-0 table #72: 682132 bytes OK
-2026/04/01-08:59:03.313 48741 Delete type=0 #68
-2026/04/01-08:59:03.313 48741 Compacting 4@0 + 1@1 files
-2026/04/01-08:59:03.316 48741 Generated table #73@0: 4 keys, 682039 bytes
-2026/04/01-08:59:03.316 48741 Compacted 4@0 + 1@1 files => 682039 bytes
-2026/04/01-08:59:03.317 48741 compacted to: files[ 0 1 1 0 0 0 0 ]
-2026/04/01-08:59:03.317 48741 Delete type=2 #69
-2026/04/01-08:59:03.317 48741 Delete type=2 #72
-2026/04/01-08:59:03.317 48741 Delete type=2 #66
-2026/04/01-08:59:03.317 48741 Delete type=2 #63
-2026/04/01-08:59:03.317 48741 Delete type=2 #60
+2026/04/01-09:19:13.367 497e6 Reusing MANIFEST /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/04/01-09:19:13.368 497e6 Recovering log #81
+2026/04/01-09:19:13.368 497e6 Reusing old log /home/viniciusphdu/WORKSPACE_CORE/Advanced-Rewards-Bot/config/bot_profile/Default/EdgeCoupons/coupons_data.db/000081.log 
+2026/04/01-09:19:13.374 497d6 Level-0 table #85: started
+2026/04/01-09:19:13.377 497d6 Level-0 table #85: 682132 bytes OK
+2026/04/01-09:19:13.378 497d6 Delete type=0 #81
+2026/04/01-09:19:13.378 497d6 Compacting 4@0 + 1@1 files
+2026/04/01-09:19:13.381 497d6 Generated table #86@0: 4 keys, 682039 bytes
+2026/04/01-09:19:13.381 497d6 Compacted 4@0 + 1@1 files => 682039 bytes
+2026/04/01-09:19:13.381 497d6 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/04/01-09:19:13.382 497d6 Delete type=2 #82
+2026/04/01-09:19:13.382 497d6 Delete type=2 #79
+2026/04/01-09:19:13.382 497d6 Delete type=2 #85
+2026/04/01-09:19:13.382 497d6 Delete type=2 #76
+2026/04/01-09:19:13.382 497d6 Delete type=2 #73
