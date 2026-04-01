@@ -1,56 +1,52 @@
-# Documentação Técnica e Arquitetura de Software
+# Documentação Técnica e Arquitetura de Software - v5.5 Soberana
 
-## 🏗️ Visão Geral da Arquitetura
+## 🏗️ Evolução da Arquitetura
 
-O **Advanced-Rewards-Bot** foi desenvolvido seguindo os princípios de modularidade e separação de preocupações (Separation of Concerns). O sistema é dividido em camadas distintas para garantir que a lógica de automação permaneça independente de qualquer interface de usuário (GUI).
+O **Advanced-Rewards-Bot** evoluiu de um simples script de injeção de cookies para uma engine de automação de alta fidelidade que emula o comportamento de hardware real.
 
-### 📂 Estrutura de Diretórios
+### 📂 Estrutura de Diretórios Atualizada
 
-- **`src/core/`**: Contém o "Cérebro" do sistema. É onde reside a lógica de baixo nível do Playwright e o controle de fluxo de automação.
-- **`src/utils/`**: Utilitários transversais, como o sistema de logging e gerenciadores de configuração.
-- **`src/api/`**: Camada de abstração para comunicação externa (preparada para integração com GUIs em Rust/Go/C++).
-- **`src/automation/`**: Scripts específicos de comportamento (Daily Sets, Searche Types).
-
----
-
-## ⚙️ Detalhamento dos Componentes
-
-### 1. Motor de Automação (`core/engine.py`)
-A classe `RewardsEngine` é o componente central. Ela gerencia o ciclo de vida do navegador Chromium.
-- **`initialize()`**: Configura o contexto do navegador, injeta o User-Agent (ex: Moto G52 para mobile) e define as dimensões do viewport.
-- **`perform_search()`**: Implementa um algoritmo de busca sequencial com **delays randômicos** (jitter) entre 2.5s e 5.0s, simulando o tempo de leitura humano e evitando padrões mecânicos detectáveis pela telemetria da Microsoft.
-- **`shutdown()`**: Garante o fechamento limpo das instâncias do navegador para evitar vazamento de memória (Memory Leaks).
-
-### 2. Sistema de Hooks (Event Bridge)
-O bot utiliza o **Observer Pattern**. Através do método `add_hook()`, qualquer componente externo (como uma futura GUI) pode se registrar para ouvir eventos em tempo real:
-- `ENGINE_READY`: Motor pronto para operação.
-- `SEARCH_START`: Uma nova busca foi iniciada (envia o termo atual).
-- `SEARCH_SUCCESS`: A busca foi validada com sucesso.
-- `SEARCH_ERROR`: Ocorreu uma falha (envia o erro detalhado).
-
-**Exemplo de Extensão:** Para adicionar uma GUI, basta criar uma função de callback e passá-la para `engine.add_hook(minha_funcao_gui)`.
-
-### 3. Logger Enterprise (`utils/logger.py`)
-Implementado via **Singleton Pattern**, garantindo que todas as partes do sistema escrevam no mesmo arquivo de auditoria (`logs/audit.log`).
-- Utiliza **RotatingFileHandler**: O log nunca excederá 5MB, rotacionando automaticamente para economizar espaço em disco.
-- Suporta níveis de severidade: `DEBUG` (detalhes técnicos), `INFO` (progresso), `WARNING` (alertas) e `ERROR` (falhas críticas).
+- **`src/core/engine.py`**: O motor soberano. Agora utiliza `launch_persistent_context` do Playwright para gerenciar sessões sem conflitos de processos.
+- **`config/bot_profile/`**: Diretório que armazena o perfil real do bot, incluindo histórico e tokens de login, eliminando a dependência de arquivos JSON instáveis.
+- **`src/automation/`**: Dividido em `searches.py` (Desktop/Mobile), `stats.py` (Oracle de Pontos) e `daily.py` (Resolvedor de Atividades).
 
 ---
 
-## 🛡️ Lógica de Evasão e Segurança
+## ⚙️ Detalhamento dos Avanços Técnicos
 
-Para atingir o **Bypass Nível 2**, o bot opera sob as seguintes premissas:
-1. **User-Agent Spoofing:** Injeção de strings de identificação de hardware real.
-2. **Context Isolation:** Cada execução utiliza um perfil de navegação limpo ou persistente, evitando rastros de sessões anteriores.
-3. **Ghost Engine (Work in Progress):** Preparado para usar `wtype` (Wayland Input) para enviar comandos de teclado direto para o compositor do sistema, ignorando o DOM do navegador (indetectável por scripts de proteção de página).
+### 1. Motor de Persistência Nativa
+Abandonamos a clonagem manual de perfis de navegadores do sistema (Edge/Chrome) devido a restrições de ELFCLASS e conflitos de arquivo `SingletonLock` no Arch Linux.
+- **Bypass de Locks:** O motor implementa um sistema de limpeza atômica de arquivos de trava no boot, garantindo que o bot nunca falhe ao abrir.
+- **Isolamento de Contexto:** O bot opera em seu próprio ecossistema Chromium, herdando apenas o login via interação inicial (Opção 5 do menu).
+
+### 2. Lógica de Validação de Pontos (Discovery)
+Após auditoria empírica (Cheat Engine Mode), a engine foi calibrada com:
+- **Parâmetros de Injeção:** Uso obrigatório de `form=ML102W` (Desktop) e `form=ML102V` (Mobile) para forçar o crédito de recompensa.
+- **Cadência Humana:** Delays fixados entre 15 e 22 segundos. A Microsoft Rewards implementou um filtro de frequência que ignora buscas feitas em intervalos menores que 10 segundos.
+- **Interação HID:** Simulação de scrolls e movimentos de mouse randômicos pós-carregamento para validar a presença humana perante os scripts de telemetria da Microsoft.
+
+### 3. Emulação de Hardware Mobile (Moto G52)
+Diferente da versão 1.0, a versão 5.5 não apenas troca o User-Agent, mas injeta propriedades de hardware:
+- `has_touch`: Habilitado para simular tela sensível ao toque.
+- `viewport`: Travado em 360x800 para condizer com a resolução real de dispositivos móveis.
+- `is_mobile`: Flag de contexto ativada para garantir que o Bing entregue a versão móvel correta.
 
 ---
 
-## 🚀 Como Expandir o Código
+## 🛡️ Segurança e Evasão (Stealth)
 
-1. **Adicionar Novos Tipos de Busca:** Crie um novo método em `engine.py` ou um novo arquivo em `automation/` e chame-o através do `main.py`.
-2. **Implementar GUI:** O `src/api/` está reservado para classes de bridge. Se for usar **Rust**, utilize os hooks para atualizar o estado da sua aplicação via barramento de eventos.
-3. **Novas Plataformas:** O viewport e o User-Agent podem ser movidos para um arquivo `config/devices.yaml` para fácil troca entre diferentes modelos de smartphone.
+O bot agora implementa proteção contra o **Fingerprinting** do navegador:
+- Injeção de script de inicialização para remover a propriedade `navigator.webdriver`.
+- Desativação de flags de automação nativas (`--enable-automation`).
+- Comportamento de navegação orgânica: Visita à página inicial do Bing a cada ciclo de buscas para "aquecer" a sessão.
 
 ---
-*Documento de Referência Técnica - Advanced-Rewards-Bot*
+
+## 🚀 Roadmap de Futuras Implementações
+
+1. **Ghost Engine v2:** Integração com o compositor Hyprland para digitação via `wtype` (Hardware puro).
+2. **Multi-Accounting:** Suporte para múltiplos diretórios de perfil (`bot_profile_1`, `bot_profile_2`).
+3. **Resgate Automatizado:** Verificação de cotação de Gift Cards via Dashboard API.
+
+---
+*Documento de Referência Técnica - Advanced-Rewards-Bot v5.5*
