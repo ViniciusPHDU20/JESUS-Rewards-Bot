@@ -30,80 +30,66 @@ class RewardsEngine:
             else:
                 hook(event, data)
 
-    async def initialize(self, headless: bool = True):
-        """Inicializa o motor Playwright e configura o contexto de navegação com persistência de sessão."""
-        logger.info("Inicializando Motor de Automação Core...")
-        playwright = await async_playwright().start()
-        
-        # Caminho absoluto para evitar erros de diretório
+    async def initialize(self, headless: bool = True, user_agent: str = None):
+        """Inicializa ou reinicializa o contexto de navegação preservando a sessão."""
+        if not self.browser:
+            logger.info("Iniciando instância do navegador Chromium...")
+            playwright = await async_playwright().start()
+            self.browser = await playwright.chromium.launch(headless=headless)
+
+        # Se já existe um contexto, salva a sessão antes de fechar para não perder o login
+        if self.context:
+            await self.save_session()
+            await self.context.close()
+
+        # Caminho da sessão
         config_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../config"))
         os.makedirs(config_dir, exist_ok=True)
         state_path = os.path.join(config_dir, "session_state.json")
         
-        user_agent = self.config.get("user_agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+        # Define o User-Agent (prioriza o passado por parâmetro ou o da config)
+        ua = user_agent or self.config.get("user_agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
         
-        self.browser = await playwright.chromium.launch(headless=headless)
+        logger.info(f"Configurando novo contexto | UA: {ua[:50]}...")
         
-        # Tenta carregar a sessão existente se o arquivo for válido e tiver conteúdo
-        if os.path.exists(state_path) and os.path.getsize(state_path) > 0:
-            try:
-                self.context = await self.browser.new_context(
-                    user_agent=user_agent,
-                    viewport={'width': 1920, 'height': 1080},
-                    storage_state=state_path
-                )
-                logger.info(f"Sessão carregada de: {state_path}")
-            except Exception as e:
-                logger.warning(f"Erro ao carregar sessão anterior: {str(e)}")
-                self.context = await self.browser.new_context(
-                    user_agent=user_agent,
-                    viewport={'width': 1920, 'height': 1080}
-                )
-        else:
-            logger.info("Nenhuma sessão anterior encontrada. Iniciando contexto limpo.")
-            self.context = await self.browser.new_context(
-                user_agent=user_agent,
-                viewport={'width': 1920, 'height': 1080}
-            )
-
+        # Cria novo contexto com o estado persistido
+        self.context = await self.browser.new_context(
+            user_agent=ua,
+            viewport={'width': 1920, 'height': 1080},
+            storage_state=state_path if os.path.exists(state_path) and os.path.getsize(state_path) > 0 else None
+        )
+        
         await self._emit("ENGINE_READY")
-        logger.info("Motor inicializado com sucesso.")
-
-    async def save_session(self):
-        """Salva o estado atual da sessão (cookies/tokens) para uso futuro."""
-        if self.context:
-            config_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../config"))
-            state_path = os.path.join(config_dir, "session_state.json")
-            await self.context.storage_state(path=state_path)
-            logger.info(f"Estado da sessão persistido em: {state_path}")
 
     async def perform_search(self, keywords: List[str]):
-        """Executa buscas dinâmicas com comportamento pseudo-humano."""
+        """Executa buscas na mesma página para manter a integridade da sessão."""
         if not self.context:
-            raise RuntimeError("Motor não inicializado. Chame initialize() primeiro.")
+            raise RuntimeError("Contexto não inicializado.")
 
-        page: Page = await self.context.new_page()
-        logger.info(f"Iniciando ciclo de busca para {len(keywords)} termos.")
+        # Reutiliza a página aberta ou cria uma nova se não houver
+        pages = self.context.pages
+        page = pages[0] if pages else await self.context.new_page()
+        
+        logger.info(f"Validando login em Bing.com...")
+        await page.goto("https://www.bing.com", wait_until="networkidle")
+        
+        # Pequena pausa para garantir que os cookies foram injetados
+        await asyncio.sleep(2)
 
         for term in keywords:
             try:
                 await self._emit("SEARCH_START", term)
-                logger.debug(f"Processando termo: {term}")
+                logger.debug(f"Pesquisando: {term}")
                 
-                await page.goto(f"https://www.bing.com/search?q={term}")
+                # Busca direta via URL para velocidade e estabilidade
+                await page.goto(f"https://www.bing.com/search?q={term}", wait_until="domcontentloaded")
                 
-                # Delay randômico para simular comportamento humano (Ghost Engine logic)
-                delay = random.uniform(2.5, 5.0)
-                await asyncio.sleep(delay)
-                
+                # Delay humano
+                await asyncio.sleep(random.uniform(3, 6))
                 await self._emit("SEARCH_SUCCESS", term)
                 
             except Exception as e:
-                logger.error(f"Erro ao processar termo '{term}': {str(e)}")
-                await self._emit("SEARCH_ERROR", {"term": term, "error": str(e)})
-
-        await page.close()
-        logger.info("Ciclo de busca concluído.")
+                logger.error(f"Erro no termo {term}: {str(e)}")
 
     async def shutdown(self):
         """Finaliza as sessões e libera os recursos do sistema."""

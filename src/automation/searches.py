@@ -26,17 +26,15 @@ class SearchAutomation:
         logger.info("Buscas DESKTOP finalizadas.")
 
     async def run_mobile_searches(self, count: int = 20):
-        """Executa buscas emulando o Moto G52."""
-        logger.info(f"Iniciando ciclo de {count} buscas MOBILE...")
+        """Executa buscas emulando o Moto G52 sem perder a sessão."""
+        logger.info(f"Trocando para identidade MOBILE (Moto G52)... {count} buscas pendentes.")
         
-        # Alterar User-Agent para o Moto G52 (Amoled Shadow)
         mobile_ua = "Mozilla/5.0 (Linux; Android 16; Moto G52) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"
-        self.engine.config["user_agent"] = mobile_ua
         
-        # Reiniciar contexto para aplicar o novo User-Agent
-        await self.engine.initialize(headless=False)
+        # Reinicia o contexto com o novo User-Agent mantendo os cookies
+        await self.engine.initialize(headless=False, user_agent=mobile_ua)
         
-        terms = ["filmes em cartaz", "restaurantes próximos", "jogos android", "preço moto g52"]
+        terms = ["filmes em cartaz", "restaurantes próximos", "jogos android", "preço moto g52", "clima amanhã", "notícias do dia"]
         search_list = random.sample(terms * (count // len(terms) + 1), count)
         
         await self.engine.perform_search(search_list)
